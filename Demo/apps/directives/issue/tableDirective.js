@@ -20,7 +20,7 @@
                     html += '<tbody>';
                     html += '<tr ng-repeat="obj in tableData">';
                     for (var j = 0; j < cols.length- 1; j++) {
-                        html += '<td ng-bind="obj.' + cols[j].toLowerCase() + '"></td>';
+                        html += '<td ng-bind="obj.' + cols[j] + '"></td>';
                     }
                     html += '<td><a href="javascript:void(0);" ng-click="updateAct(obj.Id)">Update</a> | <a href="javascript:void(0);" ng-click="deleteAct(obj.Id)">Delete</a></td>';
                     html += '</tr>';
@@ -34,12 +34,13 @@
                 scope.showTable = false;
                 scope.tableData = [];
                  function refresh() {
-                    var entries = issueFactory.query(function () {
-                        if (entries != null && entries.length > 0) {
+                     var entries = issueFactory.query(function () {
+                         
+                         if (entries != null && entries.value != null && entries.value.length > 0) {
                             scope.tableData = [];
-                            console.log(entries);
-                            for (var i = 0; i < entries.length; i++) {
-                                scope.tableData.push(entries[i]);
+                            
+                            for (var i = 0; i < entries.value.length; i++) {
+                                scope.tableData.push(entries.value[i]);
                             }
                         }
                         $timeout(function () {
@@ -61,7 +62,7 @@
                 scope.deleteAct = function(id) {
                     if (confirm("Do you want to delete this item?")) {
                         scope.action = actionState.Delete;
-                        issueFactory.delete({ id: id }, function() {
+                        issueFactory.delete({ id: id }, function () {
                             refresh();
                         });
                         

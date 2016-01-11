@@ -5,14 +5,15 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.OData;
+using System.Web.OData.Routing;
 using WebApiDemo.Models;
 
 namespace WebApiDemo.Controllers
 {
-
-    [RoutePrefix("api/Orders")]
     [Authorize]
-    public class IssuesController : ApiController
+    //[ODataRoutePrefix("issues")]
+    public class IssuesController : ODataController
     {
         static List<IssueViewModel> _issues = new List<IssueViewModel>
         {
@@ -23,14 +24,15 @@ namespace WebApiDemo.Controllers
             new IssueViewModel { Id = 5, Name = "Google Map"},
         };
 
-        
-        public IEnumerable<IssueViewModel> GetAllIssues()
+        //[EnableQuery]
+        public IQueryable<IssueViewModel> Get()
         {
-            return _issues;
+            return _issues.AsQueryable();
         }
 
-        //get
-        public IHttpActionResult GetIssues(int id)
+        //[EnableQuery]
+        [ODataRoute("issues({id})")]
+        public IHttpActionResult Get([FromODataUri] int id)
         {
             var product = _issues.FirstOrDefault((p) => p.Id == id);
             if (product == null)
@@ -40,7 +42,21 @@ namespace WebApiDemo.Controllers
             return Ok(product);
         }
 
+        //get
+        //[ODataRoute("({id})")]
+        //[EnableQuery]
+        //public IHttpActionResult Get([FromODataUri] int id)
+        //{
+        //    var product = _issues.FirstOrDefault((p) => p.Id == id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(product);
+        //}
+
         //add
+        [ODataRoute("issues()")]
         public IssueViewModel PostIssues(IssueViewModel item)
         {
             if (!ModelState.IsValid)
@@ -53,6 +69,7 @@ namespace WebApiDemo.Controllers
         }
 
         //update
+        [ODataRoute("issues({id})")]
         public void PutIssues(int id, IssueViewModel item)
         {
             if (!ModelState.IsValid)
@@ -70,6 +87,7 @@ namespace WebApiDemo.Controllers
             _issues.Add(item);
         }
         //delete
+        [ODataRoute("issues({id})")]
         public void DeleteIssues(int id)
         {
             var issue = _issues.FirstOrDefault(o => o.Id == id);
