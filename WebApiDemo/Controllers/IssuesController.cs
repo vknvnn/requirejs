@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.OData;
+using System.Web.OData.Query;
 using System.Web.OData.Routing;
 using WebApiDemo.Models;
 
@@ -25,9 +26,9 @@ namespace WebApiDemo.Controllers
         };
 
         //[EnableQuery]
-        public IQueryable<IssueViewModel> Get()
+        public IEnumerable<IssueViewModel> Get(ODataQueryOptions opts)
         {
-            return _issues.AsQueryable();
+            return _issues.Skip(opts.Skip.Value).Take(opts.Top.Value);
         }
 
         //[EnableQuery]
