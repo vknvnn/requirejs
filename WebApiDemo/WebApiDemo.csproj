@@ -142,6 +142,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
+    <Compile Include="Datas\DataProvider.cs" />
     <Compile Include="Models\IssueViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\CustomOAuthorizationServerProvider.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Providers\LocalData\RefreshToken.cs" />
     <Compile Include="Providers\LocalData\User.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utility\CustomQueryableAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

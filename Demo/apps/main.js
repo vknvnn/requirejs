@@ -11,7 +11,7 @@
         'angular-local-storage': 'scripts/angularjs/angular-local-storage.min',
         'angularAMD': 'scripts/angular.amd/angularAMD.min',
         'ngload': 'scripts/angular.amd/ngload.min',
-
+        'ui-grid-js': 'scripts/ui-grid/ui-grid.min',
         //3rd party angularjs module
         'ui-bootstrap': 'scripts/bootstrap/bootstrap.min',
 
