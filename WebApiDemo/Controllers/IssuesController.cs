@@ -22,6 +22,7 @@ namespace WebApiDemo.Controllers
 
 
         [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All, PageSize = 20, MaxTop = 50)]
+        //[EnableQuery]
         public IEnumerable<IssueViewModel> Get()
         {
             return DataProvider._issues;

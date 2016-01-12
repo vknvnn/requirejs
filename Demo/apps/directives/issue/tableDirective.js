@@ -22,8 +22,8 @@
 
             controller: function ($scope) {
                 $scope.gridOptions = {
-                    infiniteScrollRowsFromEnd: 40,
-                    infiniteScrollUp: true,
+                    infiniteScrollRowsFromEnd: 20,
+                    infiniteScrollUp: false,
                     infiniteScrollDown: true,
                     columnDefs: [
                       { name: 'Id' },
@@ -31,23 +31,42 @@
                     ],
                     data: 'data',
                     onRegisterApi: function (gridApi) {
+                        console.log(gridApi);
                         gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.getDataDown);
-                        gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, $scope.getDataUp);
+                        gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, function() {
+                            console.log('zo')
+                            gridApi.infiniteScroll.dataLoaded();
+                        });
                         $scope.gridApi = gridApi;
                     }
                 };
 
+                $scope.getLink = function (skip, top) {
+                    return 'http://localhost:52726/odata/issues?$count=true&$skip=' + skip + '&top=' + top;
+                }
+
                 $scope.data = [];
 
-                $scope.firstPage = 5;
-                $scope.lastPage = 2;
+                $scope.firstPage = 0;
+                $scope.lastPage = 0;
+
+                $scope.total = 0;
+                $scope.skip = 0;
+                $scope.top = 20;
+                $scope.prelink = '';
+                $scope.curlink = $scope.getLink($scope.skip, $scope.top);
+                $scope.nextlink = '';
+
+                
 
                 $scope.getFirstData = function () {
                     var promise = $q.defer();
-                    $http.get('http://localhost:52726/odata/issues')
+                    $http.get($scope.curlink)
                     .success(function (data) {
-                        var newData = $scope.getPage(data.value, $scope.lastPage);
-                        $scope.data = $scope.data.concat(newData);
+                        $scope.total = parseInt(data["@odata.count"]);
+                        $scope.skip += $scope.top;
+                        $scope.nextlink = $scope.getLink($scope.skip, $scope.top);
+                        $scope.data = $scope.data.concat(data.value);
                         promise.resolve();
                     });
                     return promise.promise;
@@ -55,15 +74,20 @@
 
                 $scope.getDataDown = function () {
                     var promise = $q.defer();
-                    $http.get('http://localhost:52726/odata/issues')
+                    $http.get($scope.nextlink)
                     .success(function (data) {
                         $scope.lastPage++;
-                        var newData = $scope.getPage(data.value, $scope.lastPage);
+                        $scope.total = parseInt(data["@odata.count"]);
+                        $scope.skip += $scope.top;
+                        $scope.prelink = $scope.curlink;
+                        $scope.curlink = $scope.nextlink;
+                        $scope.nextlink = $scope.getLink($scope.skip, $scope.top);
                         $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                        $scope.data = $scope.data.concat(newData);
-                        $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.lastPage < 10).then(function () { $scope.checkDataLength('up'); }).then(function () {
+                        $scope.data = $scope.data.concat(data.value);
+                        $scope.gridApi.infiniteScroll.dataLoaded($scope.skip > 0, $scope.skip < $scope.total).then(function () { }).then(function () {
                             promise.resolve();
                         });
+                        
                     })
                     .error(function (error) {
                         $scope.gridApi.infiniteScroll.dataLoaded();
@@ -71,38 +95,11 @@
                     });
                     return promise.promise;
                 };
-
-                $scope.getDataUp = function () {
-                    var promise = $q.defer();
-                    $http.get('http://localhost:52726/odata/issues')
-                    .success(function (data) {
-                        $scope.firstPage--;
-                        var newData = $scope.getPage(data.value, $scope.firstPage);
-                        $scope.gridApi.infiniteScroll.saveScrollPercentage();
-                        $scope.data = newData.concat($scope.data);
-                        $scope.gridApi.infiniteScroll.dataLoaded($scope.firstPage > 0, $scope.lastPage < 10).then(function () { $scope.checkDataLength('down'); }).then(function () {
-                            promise.resolve();
-                        });
-                    })
-                    .error(function (error) {
-                        $scope.gridApi.infiniteScroll.dataLoaded();
-                        promise.reject();
-                    });
-                    return promise.promise;
-                };
-
-
-                $scope.getPage = function (data, page) {
-                    var res = [];
-                    for (var i = (page * 100) ; i < (page + 1) * 100 && i < data.length; ++i) {
-                        res.push(data[i]);
-                    }
-                    return res;
-                };
-
+                
                 $scope.checkDataLength = function (discardDirection) {
                     // work out whether we need to discard a page, if so discard from the direction passed in
-                    if ($scope.lastPage - $scope.firstPage > 9) {
+                    console.log($scope.skip, $scope.total);
+                    if ($scope.skip >= $scope.total) {
                         // we want to remove a page
                         $scope.gridApi.infiniteScroll.saveScrollPercentage();
 
@@ -111,27 +108,21 @@
                             $scope.firstPage++;
                             $timeout(function () {
                                 // wait for grid to ingest data changes
-                                $scope.gridApi.infiniteScroll.dataRemovedTop($scope.firstPage > 0, $scope.lastPage < 10);
+                                $scope.gridApi.infiniteScroll.dataRemovedTop($scope.skip >= 0, $scope.skip < $scope.total);
                             });
                         } else {
                             $scope.data = $scope.data.slice(0, 400);
                             $scope.lastPage--;
                             $timeout(function () {
                                 // wait for grid to ingest data changes
-                                $scope.gridApi.infiniteScroll.dataRemovedBottom($scope.firstPage > 0, $scope.lastPage < 10);
+                                $scope.gridApi.infiniteScroll.dataRemovedBottom($scope.skip > 0, $scope.skip < $scope.total);
                             });
                         }
                     }
                 };
-                
-                $scope.getFirstData().then(function () {
-                    $timeout(function () {
-                        // timeout needed to allow digest cycle to complete,and grid to finish ingesting the data
-                        // you need to call resetData once you've loaded your data if you want to enable scroll up,
-                        // it adjusts the scroll position down one pixel so that we can generate scroll up events
-                        $scope.gridApi.infiniteScroll.resetScroll($scope.firstPage > 0, $scope.lastPage < 10);
-                    });
-                });
+
+                $scope.getFirstData();
+
             }
             
         }
