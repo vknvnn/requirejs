@@ -31,10 +31,8 @@
                     ],
                     data: 'data',
                     onRegisterApi: function (gridApi) {
-                        console.log(gridApi);
                         gridApi.infiniteScroll.on.needLoadMoreData($scope, $scope.getDataDown);
                         gridApi.infiniteScroll.on.needLoadMoreDataTop($scope, function() {
-                            console.log('zo')
                             gridApi.infiniteScroll.dataLoaded();
                         });
                         $scope.gridApi = gridApi;

@@ -33,7 +33,7 @@ namespace WebApiDemo
             //    defaults: new { id = RouteParameter.Optional }
             //);
             
-           //config.EnableCors();
+           config.EnableCors();
             //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");

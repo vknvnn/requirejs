@@ -12,5 +12,7 @@ namespace WebApiDemo.Models
 
         [Required(ErrorMessage = "The field Name is required.")]
         public string Name { get; set; }
+        
+        public string Email { get; set; }
     }
 }

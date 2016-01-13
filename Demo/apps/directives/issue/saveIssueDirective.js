@@ -4,9 +4,10 @@
             restrict: "E",
             scope: {
                 action: "=",
+                objData:'='
             },
             templateUrl: function (element, attrs) {
-                return 'apps/directives/issue/saveIssueDirective.html';
+                return attrs.templteUrl;
             },
             link: function (scope, element, attrs) {
                 function issueViewModel() {
