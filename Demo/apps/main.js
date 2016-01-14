@@ -14,8 +14,8 @@
         'ui-grid-js': 'scripts/ui-grid/ui-grid.min',
         //3rd party angularjs module
         'ui-bootstrap': 'scripts/bootstrap/bootstrap.min',
-
-
+        'pace-loading': 'scripts/pace/pace.min',
+        'loading-bar': 'scripts/loading-bar/loading-bar.min',
         //Register Factory
         'factory_issue': 'apps/factories/issueFactory',
         'factory_auth': 'apps/factories/authFactory',
@@ -52,6 +52,7 @@
         'angular-local-storage': ['angular'],
         'ngload': ['angularAMD'],
         'ui-bootstrap': ['jquery'],
+        'loading-bar': ['angular'],
     },
 
     // kick start application
