@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.OData;
@@ -25,6 +26,7 @@ namespace WebApiDemo.Controllers
         //[EnableQuery]
         public IEnumerable<IssueViewModel> Get()
         {
+            Thread.Sleep(1000);
             return DataProvider._issues;
         }
 
