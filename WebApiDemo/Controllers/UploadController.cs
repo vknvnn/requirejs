@@ -44,11 +44,11 @@ namespace WebApiDemo.Controllers
     public class UploadController : ApiController
     {
         [HttpGet]
-        public IHttpActionResult Get(string imagePath)
+        public IHttpActionResult Get(string id)
         {
             var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
             var root = HttpContext.Current.Server.MapPath(uploadFolder);
-            var serverPath = Path.Combine(root, imagePath);
+            var serverPath = Path.Combine(root, string.Format("BodyPart_{0}.png",id));
             var fileInfo = new FileInfo(serverPath);
 
             return !fileInfo.Exists
