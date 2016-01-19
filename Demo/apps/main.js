@@ -12,6 +12,10 @@
         'angularAMD': 'scripts/angular.amd/angularAMD.min',
         'ngload': 'scripts/angular.amd/ngload.min',
         'ui-grid-js': 'scripts/ui-grid/ui-grid.min',
+        'fileModel': 'scripts/fileModel/angular-file-model',
+        'angular-file': 'scripts/angular-file/angular-file',
+        'angular-file-upload-shim': 'scripts/angular-file-upload/angular-file-upload-shim',
+        'angular-file-upload': 'scripts/angular-file-upload/angular-file-upload',
         //3rd party angularjs module
         'ui-bootstrap': 'scripts/bootstrap/bootstrap.min',
         'pace-loading': 'scripts/pace/pace.min',
@@ -45,7 +49,7 @@
     shim: {
         
         'angular': {
-             deps: ['jquery'],
+            deps: ['jquery', 'angular-file-upload-shim'],
         },
         'angularAMD': ['angular'],
         'angular-route': ['angular'],
@@ -53,6 +57,9 @@
         'ngload': ['angularAMD'],
         'ui-bootstrap': ['jquery'],
         'loading-bar': ['angular'],
+        'fileModel': ['angular'],
+        'angular-file': ['angular'],
+        'angular-file-upload': ['angular'],
     },
 
     // kick start application

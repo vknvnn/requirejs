@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.OData;
@@ -57,8 +60,10 @@ namespace WebApiDemo.Controllers
 
         //add
         [ODataRoute("issues()")]
-        public IssueViewModel PostIssues(IssueViewModel item)
+        public async Task<IssueViewModel> PostIssues(IssueViewModel item)
         {
+            
+
             if (!ModelState.IsValid)
             {
                 throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState));

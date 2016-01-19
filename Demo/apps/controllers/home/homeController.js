@@ -2,6 +2,9 @@
     angularAMD.controller('homeController', ['$scope', 'entity', 'actionState', 'authService', '$location', function ($scope, testValue, actionState, authService, $location) {
         $scope.message = "Application Name";
         $scope.action = actionState.Add;
+        $scope.setAction = function(action) {
+            $scope.action = action;
+        }
         $scope.callBackSave = function (item) {
             console.log('zo', item);
         };

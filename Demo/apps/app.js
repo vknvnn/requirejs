@@ -1,5 +1,5 @@
-﻿define(['angularAMD', 'angular-route', 'angular-local-storage', 'factory_authInterceptor', 'factory_auth', 'loading-bar'], function (angularAMD) {
-    var app = angular.module("webapp", ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'cfp.loadingBar']);
+﻿define(['angularAMD', 'angular-route', 'angular-local-storage', 'factory_authInterceptor', 'factory_auth', 'loading-bar', 'fileModel', 'angular-file'], function (angularAMD) {
+    var app = angular.module("webapp", ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'cfp.loadingBar', 'file-model', 'ur.file']);
 
     app.config(function ($routeProvider) {
         $routeProvider

@@ -11,8 +11,11 @@
                 var authData = localStorageService.get('authorizationData');
                 if (authData) {
                     config.headers.Authorization = 'Bearer ' + authData.token;
+                    //.headers["Content-Type"] = false;
                 }
-
+                //$http.defaults.useXDomain = true;
+                //delete $http.defaults.headers.common['X-Requested-With'];
+                //console.log(config.headers);
                 return config;
             }
 

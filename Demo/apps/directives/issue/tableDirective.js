@@ -13,21 +13,45 @@
             link: function (scope, element, attrs) {
                 //scope.tableData = [{ Id: 1, Name: "UI" }];
                 scope.showTable = false;
-                scope.$watch('action', function (nVal, oVal) {
-                    if (nVal == actionState.Refresh) {
-                        refresh();
-                    }
-                });
+               
+
             },
 
             controller: function ($scope) {
+
+                $scope.updateAct = function (id) {
+                    entity.Id = id;
+                    $scope.$parent.setAction(actionState.Update);
+                    
+                };
+
+                $scope.deleteAct = function (id) {
+                    if (confirm("Do you want to delete this item?")) {
+                        $scope.$parent.setAction(actionState.Delete);
+                        issueFactory.delete({ id: id }, function () {
+                            $scope.$parent.setAction(actionState.Refresh);
+                        });
+
+                    }
+                };
+
+                $scope.$watch('action', function (nVal, oVal) {
+                    if (nVal == actionState.Refresh) {
+                        $scope.defaultValue();
+                        $scope.getFirstData();
+                        $scope.$parent.setAction(actionState.Add);
+                    }
+                });
+
                 $scope.gridOptions = {
+                    appScopeProvider: $scope,
                     infiniteScrollRowsFromEnd: 20,
                     infiniteScrollUp: false,
                     infiniteScrollDown: true,
                     columnDefs: [
                       { name: 'Id' },
-                      { name: 'Name' }
+                      { name: 'Name' },
+                      { name: ' ', cellTemplate: '<a href="javascript:void(0);" ng-click="grid.appScope.updateAct(row.entity.Id)">Update</a> | <a href="javascript:void(0);" ng-click="grid.appScope.deleteAct(row.entity.Id)">Delete</a>' }
                     ],
                     data: 'data',
                     onRegisterApi: function (gridApi) {
@@ -43,10 +67,8 @@
                     return 'http://localhost:52726/odata/issues?$count=true&$skip=' + skip + '&top=' + top;
                 }
 
+                
                 $scope.data = [];
-
-                $scope.firstPage = 0;
-                $scope.lastPage = 0;
 
                 $scope.total = 0;
                 $scope.skip = 0;
@@ -55,7 +77,18 @@
                 $scope.curlink = $scope.getLink($scope.skip, $scope.top);
                 $scope.nextlink = '';
 
-                
+                $scope.defaultValue = function () {
+                    $scope.data = [];
+
+                    $scope.total = 0;
+                    $scope.skip = 0;
+                    $scope.top = 20;
+                    $scope.prelink = '';
+                    $scope.curlink = $scope.getLink($scope.skip, $scope.top);
+                    $scope.nextlink = '';
+
+                }
+
 
                 $scope.getFirstData = function () {
                     var promise = $q.defer();
@@ -74,7 +107,6 @@
                     var promise = $q.defer();
                     $http.get($scope.nextlink)
                     .success(function (data) {
-                        $scope.lastPage++;
                         $scope.total = parseInt(data["@odata.count"]);
                         $scope.skip += $scope.top;
                         $scope.prelink = $scope.curlink;
