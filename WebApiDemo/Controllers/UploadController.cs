@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -12,8 +14,60 @@ using WebApiDemo.Models;
 
 namespace WebApiDemo.Controllers
 {
+    public class FileResult : IHttpActionResult
+    {
+        private readonly string _filePath;
+        private readonly string _contentType;
+
+        public FileResult(string filePath, string contentType = null)
+        {
+            if (filePath == null) throw new ArgumentNullException("filePath");
+
+            _filePath = filePath;
+            _contentType = contentType;
+        }
+
+        public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(File.OpenRead(_filePath))
+            };
+
+            var contentType = _contentType ?? MimeMapping.GetMimeMapping(Path.GetExtension(_filePath));
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+
+            return Task.FromResult(response);
+        }
+    }
+
     public class UploadController : ApiController
     {
+        //[HttpGet]
+        //public IHttpActionResult Get(string imagePath)
+        //{
+        //    var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
+        //    var root = HttpContext.Current.Server.MapPath(uploadFolder);
+        //    var serverPath = Path.Combine(root, imagePath);
+        //    var fileInfo = new FileInfo(serverPath);
+
+        //    return !fileInfo.Exists
+        //        ? (IHttpActionResult)NotFound()
+        //        : new FileResult(fileInfo.FullName);
+        //}
+        [HttpGet]
+        public HttpResponseMessage Get()
+        {
+            var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
+            var root = HttpContext.Current.Server.MapPath(uploadFolder);
+            var path = Path.Combine(root, "BodyPart_0259dcd2-b4fd-4777-82c8-bda3272f7e9d.png");
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new StreamContent(new FileStream(path, FileMode.Open, FileAccess.Read));
+            response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = "0259dcd2-b4fd-4777-82c8-bda3272f7e9d.png";
+
+            return response;
+        }
 
         [HttpPost] // This is from System.Web.Http, and not from System.Web.Mvc
         public async Task<HttpResponseMessage> Post()
@@ -74,7 +128,7 @@ namespace WebApiDemo.Controllers
             return JsonConvert.DeserializeObject(fileName).ToString();
         }
 
-        public string GetFileName(MultipartFileData fileData)
+        private string GetFileName(MultipartFileData fileData)
         {
             return fileData.Headers.ContentDisposition.FileName;
         }
