@@ -43,21 +43,23 @@ namespace WebApiDemo.Controllers
 
     public class UploadController : ApiController
     {
-        //[HttpGet]
-        //public IHttpActionResult Get(string imagePath)
-        //{
-        //    var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
-        //    var root = HttpContext.Current.Server.MapPath(uploadFolder);
-        //    var serverPath = Path.Combine(root, imagePath);
-        //    var fileInfo = new FileInfo(serverPath);
+        [HttpGet]
+        public IHttpActionResult Get(string imagePath)
+        {
+            var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
+            var root = HttpContext.Current.Server.MapPath(uploadFolder);
+            var serverPath = Path.Combine(root, imagePath);
+            var fileInfo = new FileInfo(serverPath);
 
-        //    return !fileInfo.Exists
-        //        ? (IHttpActionResult)NotFound()
-        //        : new FileResult(fileInfo.FullName);
-        //}
+            return !fileInfo.Exists
+                ? (IHttpActionResult)NotFound()
+                : new FileResult(fileInfo.FullName);
+        }
+
         [HttpGet]
         public HttpResponseMessage Get()
         {
+
             var uploadFolder = "~/App_Data/Tmp/FileUploads"; // you could put this to web.config
             var root = HttpContext.Current.Server.MapPath(uploadFolder);
             var path = Path.Combine(root, "BodyPart_0259dcd2-b4fd-4777-82c8-bda3272f7e9d.png");
