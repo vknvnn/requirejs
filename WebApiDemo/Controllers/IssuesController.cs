@@ -25,11 +25,10 @@ namespace WebApiDemo.Controllers
     {
 
 
-        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All, PageSize = 20, MaxTop = 50)]
+        [EnableQuery(AllowedQueryOptions = AllowedQueryOptions.All, PageSize = 20, MaxTop = 50, AllowedFunctions = AllowedFunctions.AllFunctions)]
         //[EnableQuery]
         public IEnumerable<IssueViewModel> Get()
         {
-            Thread.Sleep(1000);
             return DataProvider._issues;
         }
 

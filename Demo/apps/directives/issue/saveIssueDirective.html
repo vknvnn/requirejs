@@ -1,12 +1,13 @@
 ﻿<style type="text/css">
     footer .navbar-collapse.in {
-    bottom: 70px;
-    position: absolute;
-    background-color:#333;
-    width:100%;
-}
+        bottom: 70px;
+        position: absolute;
+        background-color:#333;
+        width:100%;
+    }
+
 </style>
-<form name="newPhotosForm" role="form" enctype="multipart/form-data">
+<div>
     <div class="form-group">
         <label>Name</label>
         <input type="text" class="form-control" ng-model="issueData.Name" placeholder="Name">
@@ -17,7 +18,13 @@
         <input type="file" file-model="file">
         <p class="help-block">Example block-level help text here.</p>
     </div>
+    <select kendo-drop-down-list
+            k-options="options" ng-model="issueData.SelectId"></select>
+    <div class="form-group">
+        
+    </div>
+
     <button class="btn btn-primary" ng-click="updateDir()" ng-show="action == 3 || action == 4">Update</button>
     <button class="btn btn-primary" ng-click="addDir()" ng-show="action == 1 || action == 2">Add</button>
     <button type="button" class="btn btn-default" ng-click="clearDir()">Clear</button>
-</form>
+</div>

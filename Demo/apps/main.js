@@ -4,7 +4,7 @@
     // alias libraries paths.  Must set 'angular'
     paths: {
         //register js
-        'jquery': 'scripts/jquery/jquery-2.1.4.min',
+        'jquery': 'http://kendo.cdn.telerik.com/2016.1.112/js/jquery.min',
         'angular': 'scripts/angularjs/angular.min',
         'angular-route': 'scripts/angularjs/angular-route.min',
         'angular-resource': 'scripts/angularjs/angular-resource.min',
@@ -16,6 +16,7 @@
         'angular-file': 'scripts/angular-file/angular-file',
         'angular-file-upload-shim': 'scripts/angular-file-upload/angular-file-upload-shim',
         'angular-file-upload': 'scripts/angular-file-upload/angular-file-upload',
+        'kendo-core': 'scripts/kendo-core/kendo.ui.core.min',
         //3rd party angularjs module
         'ui-bootstrap': 'scripts/bootstrap/bootstrap.min',
         'pace-loading': 'scripts/pace/pace.min',
@@ -60,6 +61,9 @@
         'fileModel': ['angular'],
         'angular-file': ['angular'],
         'angular-file-upload': ['angular'],
+        'kendo-core': {
+            deps: ['jquery', 'angular'],
+        }
     },
 
     // kick start application
