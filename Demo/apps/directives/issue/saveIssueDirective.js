@@ -15,7 +15,7 @@
                     var self = this;
                     self.Id = 0;
                     self.Name = "";
-                    self.SelectId = 1;
+                    self.SelectId = "500";
                 }
 
                
@@ -24,6 +24,7 @@
                     //if (parseInt(nVal) != parseInt(oVal)) {
                     //    scope.issueData.SelectId = parseInt(nVal);
                     //}
+                    console.log(nVal, oVal);
                 });
                 scope.updateDir = function () {
                     issueFactory.update({ id: entity.Id }, scope.issueData, function() {
@@ -58,7 +59,11 @@
 
                 scope.clearDir = function () {
                     //scope.$parent.setAction(actionState.Add);
-                    scope.issueData.SelectId = 510;
+                    
+                    $timeout(function () {
+                        scope.$apply(function() {scope.issueData.SelectId = '520';});
+                    });
+
                 };
                 
                 scope.$watch('action', function (nVal, oVal) {
@@ -109,6 +114,7 @@
                     dataTextField: "Name",
                     dataValueField: "Id",
                     filter: "contains",
+                    value: scope.issueData.SelectId,
                     virtual: {
                         itemHeight: 26,
                         valueMapper: function (options) {
@@ -116,7 +122,10 @@
                         }
                     },
                     height: 130,
-                    dataSource: scope.dataSource
+                    dataSource: scope.dataSource,
+                    change: function(e) {
+                        console.log(e);
+                    }
                 };
 
             },

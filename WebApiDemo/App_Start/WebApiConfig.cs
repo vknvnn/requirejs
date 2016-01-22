@@ -22,6 +22,14 @@ namespace WebApiDemo
             config.MapHttpAttributeRoutes();
             ODataModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<IssueViewModel>("issues");
+            builder.Namespace = "vms";
+            builder.EntityType<IssueViewModel>().Collection
+                .Function("mostexpensive")
+                .ReturnsFromEntitySet<IssueViewModel>("issue")
+                .Parameter<int>("id");
+            builder.Function("GetSalesTaxRate")
+            .Returns<double>()
+            .Parameter<int>("PostalCode");
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",
                 routePrefix: "odata",

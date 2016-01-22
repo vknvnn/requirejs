@@ -20,7 +20,7 @@ using WebApiDemo.Utility;
 namespace WebApiDemo.Controllers
 {
     //[Authorize]
-    //[ODataRoutePrefix("issues")]
+    [ODataRoutePrefix("issues")]
     public class IssuesController : ODataController
     {
 
@@ -32,16 +32,35 @@ namespace WebApiDemo.Controllers
             return DataProvider._issues;
         }
 
-        [EnableQuery]
-        [ODataRoute("issues({id})")]
-        public IHttpActionResult Get([FromODataUri] int id)
+
+
+        //[EnableQuery]
+        //[ODataRoute("issues({id})")]
+        //public IHttpActionResult Get([FromODataUri] int id)
+        //{
+        //    var product = DataProvider._issues.FirstOrDefault((p) => p.Id == id);
+        //    if (product == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(product);
+        //}
+        //[ODataRoute("GetIndex(id={id})")]
+        //public IHttpActionResult GetIndex([FromODataUri] int id)
+        //{
+        //    return Ok(id);
+        //}
+        
+        [HttpGet]
+        [ODataRoute("vms.mostexpensive(id={id})")]
+        public IHttpActionResult MostExpensive([FromODataUri] int id)
         {
-            var product = DataProvider._issues.FirstOrDefault((p) => p.Id == id);
-            if (product == null)
+            var item = DataProvider._issues.FirstOrDefault(o => o.Id == id);
+            if (item != null)
             {
-                return NotFound();
+                return Ok(item);
             }
-            return Ok(product);
+            return BadRequest("Not found!");
         }
 
         //get
@@ -58,7 +77,7 @@ namespace WebApiDemo.Controllers
         //}
 
         //add
-        [ODataRoute("issues()")]
+        [ODataRoute("()")]
         public async Task<IssueViewModel> PostIssues(IssueViewModel item)
         {
             
@@ -73,7 +92,7 @@ namespace WebApiDemo.Controllers
         }
 
         //update
-        [ODataRoute("issues({id})")]
+        [ODataRoute("({id})")]
         public void PutIssues(int id, IssueViewModel item)
         {
             if (!ModelState.IsValid)
@@ -91,7 +110,7 @@ namespace WebApiDemo.Controllers
             DataProvider._issues.Add(item);
         }
         //delete
-        [ODataRoute("issues({id})")]
+        [ODataRoute("({id})")]
         public void DeleteIssues(int id)
         {
             var issue = DataProvider._issues.FirstOrDefault(o => o.Id == id);
