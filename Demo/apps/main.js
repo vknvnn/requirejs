@@ -23,7 +23,9 @@
         'loading-bar': 'scripts/loading-bar/loading-bar.min',
         'moment': 'scripts/full-calendar/lib/moment.min',
         'full-calendar': 'scripts/full-calendar/fullcalendar.min',
-        'ui-calendar': 'scripts/full-calendar/ui-calendar',
+        'input-mask': 'scripts/inputmask/jquery.inputmask.bundle.min',
+        
+
 
         //Register Factory
         'factory_issue': 'apps/factories/issueFactory',
@@ -41,6 +43,7 @@
         'directive_table': 'apps/directives/issue/tableDirective',
         'directive_saveIssue': 'apps/directives/issue/saveIssueDirective',
         'directive_modal': 'apps/directives/modalDirective',
+        'directive_inputmask': 'apps/directives/inputmaskDirective',
 
         //Register controller
         'controller_login': 'apps/controllers/login/loginController',
@@ -75,6 +78,9 @@
         },
         'ui-calendar': {
             deps: ['angular', 'full-calendar'],
+        },
+        'input-mask': {
+            deps: ['jquery'],
         }
 
     },

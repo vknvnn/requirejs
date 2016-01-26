@@ -1,4 +1,4 @@
-﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'fileModel', 'angular-file-upload', 'kendo-core'], function (angularAMD) {
+﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'fileModel', 'angular-file-upload', 'kendo-core', 'input-mask', 'directive_inputmask'], function (angularAMD) {
     angularAMD.processQueue();
     angularAMD.directive('saveIssueDir', ['issueFactory', '$timeout', 'actionState', 'entity', '$upload', '$http', function (issueFactory, $timeout, actionState, entity, $upload, $http) {
         return {

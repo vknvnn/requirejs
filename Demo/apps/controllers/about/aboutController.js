@@ -1,6 +1,6 @@
 ﻿define(['angularAMD', 'ui-bootstrap', 'ui-calendar', 'directive_modal'], function (angularAMD) {
     angularAMD.processQueue();
-    angularAMD.controller('aboutController', ['$scope', '$http', function ($scope, $http) {
+    angularAMD.controller('aboutController', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
         $scope.message = "Message from about controller";
 
         $('#calendar').fullCalendar({
@@ -17,17 +17,19 @@
             selectable: true,
             selectHelper: true,
             select: function (start, end) {
-                var title = prompt('Event Title:');
-                var eventData;
-                if (title) {
-                    eventData = {
-                        title: title,
-                        start: start,
-                        end: end
-                    };
-                    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-                }
-                $('#calendar').fullCalendar('unselect');
+                $timeout(function() {$scope.$apply(function() {$scope.showModal1 = true;});});
+
+                //var title = prompt('Event Title:');
+                //var eventData;
+                //if (title) {
+                //    eventData = {
+                //        title: title,
+                //        start: start,
+                //        end: end
+                //    };
+                //    $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                //}
+                //$('#calendar').fullCalendar('unselect');
             },
             eventClick: function(calEvent, jsEvent, view) {
 
@@ -36,13 +38,15 @@
                 console.log('View: ', view);
 
                 // change the border color just for fun
-                $(this).css('border-color', 'red');
-                var eventData = {
-                    title: 'This is a test',
-                    start: '2016-01-12T01:00',
-                    end: '2016-01-12T02:00'
-                };
-                $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                //$(this).css('border-color', 'red');
+                //var eventData = {
+                //    title: 'This is a test',
+                //    start: '2016-01-12T01:00',
+                //    end: '2016-01-12T02:00'
+                //};
+                //$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+                $timeout(function () { $scope.$apply(function () { $scope.showModal1 = true; }); });
+                //$scope.showModal1 = true;
 
             },
             eventRender: function (event, element) {
