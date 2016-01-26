@@ -140,10 +140,16 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CalendarsController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IssuesController.cs" />
     <Compile Include="Datas\DataProvider.cs" />
+    <Compile Include="Models\EventViewModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\IssueViewModel.cs" />
     <Compile Include="Models\UploadDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

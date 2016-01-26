@@ -21,15 +21,23 @@ namespace WebApiDemo
             // Web API routes
             config.MapHttpAttributeRoutes();
             ODataModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<IssueViewModel>("issues");
             builder.Namespace = "vms";
+            builder.EntitySet<IssueViewModel>("issues");
             builder.EntityType<IssueViewModel>().Collection
                 .Function("mostexpensive")
                 .ReturnsFromEntitySet<IssueViewModel>("issue")
                 .Parameter<int>("id");
-            builder.Function("GetSalesTaxRate")
-            .Returns<double>()
-            .Parameter<int>("PostalCode");
+            builder.EntitySet<EventViewModel>("calendars");
+            var events = builder.EntitySet<EventViewModel>("calendars");
+            var getStadiumsTest = events.EntityType.Collection.Function("getstartend");
+            getStadiumsTest.Parameter<DateTime?>("start");
+            getStadiumsTest.Parameter<DateTime?>("end");
+            getStadiumsTest.ReturnsFromEntitySet<EventViewModel>("calendars");
+            
+          // <DateTime?>("start");
+            //builder.Function("GetSalesTaxRate")
+            //.Returns<double>()
+            //.Parameter<int>("PostalCode");
             config.MapODataServiceRoute(
                 routeName: "ODataRoute",
                 routePrefix: "odata",

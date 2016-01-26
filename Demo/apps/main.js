@@ -4,7 +4,7 @@
     // alias libraries paths.  Must set 'angular'
     paths: {
         //register js
-        'jquery': 'http://kendo.cdn.telerik.com/2016.1.112/js/jquery.min',
+        'jquery': 'scripts/jquery/jquery-2.1.4.min',
         'angular': 'scripts/angularjs/angular.min',
         'angular-route': 'scripts/angularjs/angular-route.min',
         'angular-resource': 'scripts/angularjs/angular-resource.min',
@@ -21,6 +21,10 @@
         'ui-bootstrap': 'scripts/bootstrap/bootstrap.min',
         'pace-loading': 'scripts/pace/pace.min',
         'loading-bar': 'scripts/loading-bar/loading-bar.min',
+        'moment': 'scripts/full-calendar/lib/moment.min',
+        'full-calendar': 'scripts/full-calendar/fullcalendar.min',
+        'ui-calendar': 'scripts/full-calendar/ui-calendar',
+
         //Register Factory
         'factory_issue': 'apps/factories/issueFactory',
         'factory_auth': 'apps/factories/authFactory',
@@ -36,6 +40,7 @@
         //Register directive
         'directive_table': 'apps/directives/issue/tableDirective',
         'directive_saveIssue': 'apps/directives/issue/saveIssueDirective',
+        'directive_modal': 'apps/directives/modalDirective',
 
         //Register controller
         'controller_login': 'apps/controllers/login/loginController',
@@ -61,9 +66,17 @@
         'fileModel': ['angular'],
         'angular-file': ['angular'],
         'angular-file-upload': ['angular'],
+        'jquery': [''],
         'kendo-core': {
             deps: ['jquery', 'angular'],
+        },
+        'full-calendar': {
+            deps: ['jquery', 'moment'],
+        },
+        'ui-calendar': {
+            deps: ['angular', 'full-calendar'],
         }
+
     },
 
     // kick start application

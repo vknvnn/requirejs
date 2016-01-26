@@ -8,6 +8,7 @@ namespace WebApiDemo.Datas
 {
     public static class DataProvider
     {
+        #region Data Issue
         public static List<IssueViewModel> _issues = new List<IssueViewModel>
         {
             new IssueViewModel {Id = 1, Name = "Ui Design 1"},
@@ -2147,5 +2148,24 @@ namespace WebApiDemo.Datas
             new IssueViewModel {Id = 2134, Name = "Google Map 2134"},
 
         };
+        #endregion
+
+        public static List<EventViewModel> Calendars = new List<EventViewModel>
+        {
+            new EventViewModel {Id= 1, Title = "All Day Event" , Start = DateTime.Parse("2016-01-01"), End =DateTime.Parse("2016-01-01") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 2, Title = "Long Event" , Start = DateTime.Parse("2016-01-07"), End =DateTime.Parse("2016-01-10") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 3, Title = "Repeating Event" , Start = DateTime.Parse("2016-01-09T16:00:00"), End =DateTime.Parse("2016-01-09T18:00:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 4, Title = "Repeating Event" , Start = DateTime.Parse("2016-01-16T16:00:00"), End =DateTime.Parse("2016-01-09T18:00:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 5, Title = "Conference" , Start = DateTime.Parse("2016-01-11"), End =DateTime.Parse("2016-01-13") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 6, Title = "Meeting" , Start = DateTime.Parse("2016-01-12T10:30:00"), End =DateTime.Parse("2016-01-12T12:30:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 7, Title = "Lunch" , Start = DateTime.Parse("2016-01-12T12:00:00"), End =DateTime.Parse("2016-01-12T13:00:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 8, Title = "Meeting" , Start = DateTime.Parse("2016-01-12T14:30:00"), End =DateTime.Parse("2016-01-12T15:30:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 9, Title = "Happy Hour" , Start = DateTime.Parse("2016-01-12T17:30:00"), End =DateTime.Parse("2016-01-12T18:00:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 10, Title = "Dinner" , Start = DateTime.Parse("2016-01-12T20:00:00"), End =DateTime.Parse("2016-01-12T20:30:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 11, Title = "Birthday Party" , Start = DateTime.Parse("2016-01-13T07:00:00"), End =DateTime.Parse("2016-01-13T12:00:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+            new EventViewModel {Id= 12, Title = "Click for Google" , Start = DateTime.Parse("2016-01-28T17:30:00"), End =DateTime.Parse("2016-01-28T17:45:00") , BackgroundColor ="", TextColor = "", BorderColor = ""},
+
+        };
+
     }
 }
