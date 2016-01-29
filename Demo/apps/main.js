@@ -24,7 +24,7 @@
         'moment': 'scripts/full-calendar/lib/moment.min',
         'full-calendar': 'scripts/full-calendar/fullcalendar.min',
         'input-mask': 'scripts/inputmask/jquery.inputmask.bundle.min',
-        
+        'datepicker': 'scripts/datepicker/bootstrap-datetimepicker.min',
 
 
         //Register Factory
@@ -44,7 +44,7 @@
         'directive_saveIssue': 'apps/directives/issue/saveIssueDirective',
         'directive_modal': 'apps/directives/modalDirective',
         'directive_inputmask': 'apps/directives/inputmaskDirective',
-
+        'directive_dateTimePicker': 'apps/directives/dateTimePickerDirective',
         //Register controller
         'controller_login': 'apps/controllers/login/loginController',
         'controller_home': 'apps/controllers/home/homeController',
@@ -72,6 +72,9 @@
         'jquery': [''],
         'kendo-core': {
             deps: ['jquery', 'angular'],
+        },
+        'datepicker': {
+            deps: ['jquery', 'moment'],
         },
         'full-calendar': {
             deps: ['jquery', 'moment'],

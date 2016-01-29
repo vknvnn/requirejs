@@ -1,4 +1,6 @@
-﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'fileModel', 'angular-file-upload', 'kendo-core', 'input-mask', 'directive_inputmask'], function (angularAMD) {
+﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'fileModel', 'angular-file-upload', 'kendo-core',
+    'input-mask', 'directive_inputmask', 'directive_dateTimePicker'],
+    function (angularAMD) {
     angularAMD.processQueue();
     angularAMD.directive('saveIssueDir', ['issueFactory', '$timeout', 'actionState', 'entity', '$upload', '$http', function (issueFactory, $timeout, actionState, entity, $upload, $http) {
         return {
@@ -15,9 +17,9 @@
                     var self = this;
                     self.Id = 0;
                     self.Name = "";
+                    self.Phone = '';
                     self.SelectId = "500";
                 }
-
                
                 scope.issueData = new issueViewModel();
                 scope.$watch('issueData.SelectId', function (nVal, oVal) {
