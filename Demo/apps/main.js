@@ -25,7 +25,7 @@
         'full-calendar': 'scripts/full-calendar/fullcalendar.min',
         'input-mask': 'scripts/inputmask/jquery.inputmask.bundle.min',
         'datepicker': 'scripts/datepicker/bootstrap-datetimepicker.min',
-
+        'papaparse': 'scripts/papaparse/papaparse.min',
 
         //Register Factory
         'factory_issue': 'apps/factories/issueFactory',
@@ -45,6 +45,7 @@
         'directive_modal': 'apps/directives/modalDirective',
         'directive_inputmask': 'apps/directives/inputmaskDirective',
         'directive_dateTimePicker': 'apps/directives/dateTimePickerDirective',
+        'directive_csvToJson': 'apps/directives/csvToJsonDirective',
         //Register controller
         'controller_login': 'apps/controllers/login/loginController',
         'controller_home': 'apps/controllers/home/homeController',
@@ -84,8 +85,8 @@
         },
         'input-mask': {
             deps: ['jquery'],
-        }
-
+        },
+        'papaparse': ['jquery']
     },
 
     // kick start application

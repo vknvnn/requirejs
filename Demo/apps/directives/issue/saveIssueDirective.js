@@ -1,5 +1,5 @@
 ﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'fileModel', 'angular-file-upload', 'kendo-core',
-    'input-mask', 'directive_inputmask', 'directive_dateTimePicker'],
+    'input-mask', 'directive_inputmask', 'directive_dateTimePicker', 'directive_csvToJson'],
     function (angularAMD) {
     angularAMD.processQueue();
     angularAMD.directive('saveIssueDir', ['issueFactory', '$timeout', 'actionState', 'entity', '$upload', '$http', function (issueFactory, $timeout, actionState, entity, $upload, $http) {
@@ -13,6 +13,15 @@
                 return attrs.templteUrl;
             },
             link: function (scope, element, attrs) {
+                scope.import = function() {
+                    scope.csvParseJson();
+                };
+
+                scope.csvParseJsoncomplete = function (result) {
+                    console.log(result);
+                };
+
+
                 function issueViewModel() {
                     var self = this;
                     self.Id = 0;
