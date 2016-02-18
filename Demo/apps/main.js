@@ -27,6 +27,9 @@
         'datepicker': 'scripts/datepicker/bootstrap-datetimepicker.min',
         'papaparse': 'scripts/papaparse/papaparse.min',
         'ui-grid-custom-rowSelection': 'scripts/ui-grid/ui-grid.custom.rowSelection',
+        'handsontable': 'scripts/handsontable/handsontable.full.min',
+        'ngHandsontable': 'scripts/handsontable/ngHandsontable.min',
+        'ngHandsontable-data': 'scripts/handsontable/dataFactories',
 
         //Register Factory
         'factory_issue': 'apps/factories/issueFactory',
@@ -88,7 +91,9 @@
             deps: ['jquery'],
         },
         'papaparse': ['jquery'],
-        'ui-grid-custom-rowSelection': ['ui-grid-js']
+        'ui-grid-custom-rowSelection': ['ui-grid-js'],
+        'ngHandsontable': ['angular', 'handsontable'],
+        'ngHandsontable-data': ['ngHandsontable']
     },
 
     // kick start application

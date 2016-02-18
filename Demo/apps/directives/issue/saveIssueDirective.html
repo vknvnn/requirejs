@@ -40,5 +40,10 @@
         <csv-to-json import-complete="csvParseJsoncomplete"></csv-to-json>
     </div>
     <button id="btn-csv-to-json" class="btn btn-primary" ng-click="import()">Preview</button>
+    <hot-table context-menu="true"
+               row-headers="true"
+               col-headers="true"
+               datarows="db.items">
+    </hot-table>
 </div>
  

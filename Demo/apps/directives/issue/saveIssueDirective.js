@@ -1,8 +1,9 @@
 ﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'fileModel', 'angular-file-upload', 'kendo-core',
-    'input-mask', 'directive_inputmask', 'directive_dateTimePicker', 'directive_csvToJson'],
+    'input-mask', 'directive_inputmask', 'directive_dateTimePicker', 'directive_csvToJson', 'ngHandsontable', 'ngHandsontable-data'],
     function (angularAMD) {
     angularAMD.processQueue();
-    angularAMD.directive('saveIssueDir', ['issueFactory', '$timeout', 'actionState', 'entity', '$upload', '$http', function (issueFactory, $timeout, actionState, entity, $upload, $http) {
+    angularAMD.directive('saveIssueDir', ['issueFactory', '$timeout', 'actionState', 'entity', '$upload', '$http', 'dataFactory',
+        function (issueFactory, $timeout, actionState, entity, $upload, $http, dataFactory) {
         return {
             restrict: "E",
             scope: {
@@ -13,6 +14,8 @@
                 return attrs.templteUrl;
             },
             link: function (scope, element, attrs) {
+                
+                scope.db = { items: dataFactory.generateArrayOfArrays(50, 10) };
                 scope.import = function() {
                     scope.csvParseJson();
                 };
