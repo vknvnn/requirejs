@@ -26,6 +26,7 @@
         'input-mask': 'scripts/inputmask/jquery.inputmask.bundle.min',
         'datepicker': 'scripts/datepicker/bootstrap-datetimepicker.min',
         'papaparse': 'scripts/papaparse/papaparse.min',
+        'ui-grid-custom-rowSelection': 'scripts/ui-grid/ui-grid.custom.rowSelection',
 
         //Register Factory
         'factory_issue': 'apps/factories/issueFactory',
@@ -86,7 +87,8 @@
         'input-mask': {
             deps: ['jquery'],
         },
-        'papaparse': ['jquery']
+        'papaparse': ['jquery'],
+        'ui-grid-custom-rowSelection': ['ui-grid-js']
     },
 
     // kick start application

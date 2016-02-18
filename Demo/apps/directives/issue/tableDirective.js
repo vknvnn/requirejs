@@ -1,4 +1,4 @@
-﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'ui-grid-js'], function (angularAMD) {
+﻿define(['angularAMD', 'factory_issue', 'constant_actionState', 'value_entity', 'ui-grid-js', 'ui-grid-custom-rowSelection'], function (angularAMD) {
     angularAMD.processQueue();
     angularAMD.directive('tableDir', ['issueFactory', '$timeout', 'actionState', 'entity', '$q', '$http',
         function (issueFactory, $timeout, actionState, entity, $q, $http) {
@@ -8,13 +8,11 @@
                 action: "=",
             },
             template: function (element, attrs) {
-                return '<div ui-grid="gridOptions" class="grid" ui-grid-infinite-scroll></div>';
+                return '<div ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-infinite-scroll></div>';
             },
             link: function (scope, element, attrs) {
                 //scope.tableData = [{ Id: 1, Name: "UI" }];
                 scope.showTable = false;
-               
-
             },
 
             controller: function ($scope) {
@@ -48,6 +46,9 @@
                     infiniteScrollRowsFromEnd: 20,
                     infiniteScrollUp: false,
                     infiniteScrollDown: true,
+                    enableRowSelection: false,
+                    enableRowHeaderSelection: true,
+                    multiSelect: true,
                     columnDefs: [
                       { name: 'Id' },
                       { name: 'Name' },
